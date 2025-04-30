@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
+		"name": "Dictionary API",
+		"description": "Collection for testing the Dictionary API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Base",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/",
+					"host": ["{{base_url}}"],
+					"path": [""]
+				}
+			}
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/signup?name={{name}}&email={{email}}&password={{password}}",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "signup"],
+							"query": [
+								{
+									"key": "name",
+									"value": ""
+								},
+								{
+									"key": "email",
+									"value": ""
+								},
+								{
+									"key": "password",
+									"value": ""
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Signin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/signin?email=test@example.com&password=password123",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "signin"],
+							"query": [
+								{
+									"key": "email",
+									"value": ""
+								},
+								{
+									"key": "password",
+									"value": ""
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Words",
+			"item": [
+				{
+					"name": "Search Words",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer "
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/entries/en?search=test&page=1&limit=10",
+							"host": ["{{base_url}}"],
+							"path": ["entries", "en"],
+							"query": [
+								{
+									"key": "search",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Word Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer "
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/entries/en/test",
+							"host": ["{{base_url}}"],
+							"path": ["entries", "en", "test"],
+							"query": [
+								{
+									"key": "word",
+									"value": ""
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get All Words",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer "
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/entries/en?page=1&limit=10",
+							"host": ["{{base_url}}"],
+							"path": ["entries", "en"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Favorites",
+			"item": [
+				{
+					"name": "Add to Favorites",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer "
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/entries/en/test/favorite",
+							"host": ["{{base_url}}"],
+							"path": ["entries", "en", "test", "favorite"],
+							"query": [
+								{
+									"key": "word",
+									"value": ""
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Remove from Favorites",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer "
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/entries/en/test/unfavorite",
+							"host": ["{{base_url}}"],
+							"path": ["entries", "en", "test", "unfavorite"],
+							"query": [
+								{
+									"key": "word",
+									"value": ""
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get User Favorites",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer "
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/me/favorites?page=1&limit=20",
+							"host": ["{{base_url}}"],
+							"path": ["user", "me", "favorites"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer "
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/me/history?page=1&perPage=4",
+							"host": ["{{base_url}}"],
+							"path": ["user", "me", "history"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "4"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get User Data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer "
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/me",
+							"host": ["{{base_url}}"],
+							"path": ["user", "me"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
