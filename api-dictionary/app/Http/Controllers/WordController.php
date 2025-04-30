@@ -21,16 +21,17 @@ class WordController extends Controller
 
     public function getWordData(Request $request): JsonResponse
     {
+        $word = $request->input('word') ?? '';
+        $word = $this->wordService->getWord($word);
+        $wordData = $this->wordService->getWordData($word->word);
 
-        $wordData = $this->wordService->getWord($request->input('word') ?? '');
-
-        if (!$wordData) {
+        if (!$word && !$wordData) {
             return response()->json([
                 'message' => 'Word not found'
             ], 400);
         }
 
-        $this->historyService->addToHistory(JWTAuth::user()->id, $wordData->id);
+        $this->historyService->addToHistory(JWTAuth::user()->id, $word->id);
 
         return response()->json([
             'word' => $wordData

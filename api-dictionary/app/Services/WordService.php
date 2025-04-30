@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\WordRepository;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
 
 class WordService
 {
@@ -11,6 +13,49 @@ class WordService
     public function __construct(WordRepository $wordRepository)
     {
         $this->wordRepository = $wordRepository;
+    }
+
+    public function getWordData($word)
+    {
+        $cacheKey = 'dictionary:' . strtolower($word);
+        $cachedData = Cache::get($cacheKey);
+        if ($cachedData) {
+            return $cachedData;
+        }
+
+        $result = null;
+
+        $client = new Client();
+        try {
+            $response = $client->get("https://api.dictionaryapi.dev/api/v2/entries/en/{$word}");
+            $data = json_decode($response->getBody(), true);
+
+            if (!empty($data[0])) {
+                $wordData = $data[0];
+
+                $definitions = [];
+                foreach ($wordData['meanings'] as $meaning) {
+                    foreach ($meaning['definitions'] as $definition) {
+                        $definitions[] = [
+                            'definition' => $definition['definition'],
+                            'partOfSpeech' => $meaning['partOfSpeech'],
+                            'example' => $definition['example'] ?? null
+                        ];
+                    }
+                }
+
+                $result = [
+                    'word' => $wordData['word'],
+                    'definitions' => $definitions
+                ];
+
+                // Store in cache for 24 hours
+                Cache::put($cacheKey, $result, 86400);
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+        return $result;
     }
 
     public function getWord($word)

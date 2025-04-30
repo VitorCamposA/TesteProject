@@ -24,11 +24,9 @@ Route::get('/', function () {
     ], 200);
 });
 
-// Public routes
 Route::post('/auth/signup', [UserController::class, 'signup']);
 Route::get('/auth/signin', [UserController::class, 'signin']);
 
-// Protected routes
 Route::middleware('check.token')->group(function () {
     Route::get('/entries/en/{word}', [WordController::class, 'getWordData']);
     Route::get('/entries/en', [WordController::class, 'getWords']);
