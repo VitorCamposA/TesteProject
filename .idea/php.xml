@@ -132,6 +132,7 @@
       <path value="$PROJECT_DIR$/api-dictionary/vendor/tymon/jwt-auth" />
       <path value="$PROJECT_DIR$/api-dictionary/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/api-dictionary/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/api-dictionary/vendor/predis/predis" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
